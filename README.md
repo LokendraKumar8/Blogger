@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# React Redux Blog Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a simple blog application built with React, Redux Toolkit, React Router and Tailwind CSS. It uses Context API for cross-cutting concerns and maintains data locally via Redux store.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Display list of blog posts
+- View blog post details
+- Add new blog post
+- Edit existing blog post
+- Delete blog post
+- Like blog post
+- Light/Dark theme toggle using Context API
 
-### `npm start`
+## State Management
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Global posts state is managed with Redux Toolkit slices. Cross-cutting theme state uses React Context.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Styling
 
-### `npm test`
+Tailwind CSS v3 is used for styling. Project includes a manual `tailwind.config.js` and `postcss.config.js`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Scripts
 
-### `npm run build`
+- `npm start` - runs development server
+- `npm run build` - compiles production build
+- `npm test` - launches test runner
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Docker
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+A `Dockerfile` is included for building a production image:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```dockerfile
+# build stage
+FROM node:18-alpine as build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
 
-### `npm run eject`
+# serve with nginx
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Build and run:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+docker build -t react-blog .
+docker run -p 80:80 react-blog
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Deployment
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You can deploy the built files (`build/` folder) to any static file host such as Vercel, Netlify, GitHub Pages, or use the Docker container on a cloud provider.
 
-## Learn More
+## Development Notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Data is stored in Redux state and will reset when the page reloads.
+- The project uses React Router for navigation; routes are defined in `src/App.js`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Getting Started
 
-### Code Splitting
+1. Clone the repository
+2. `cd blog-app`
+3. `npm install`
+4. `npm start` to launch locally
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Enjoy developing your blog application!
