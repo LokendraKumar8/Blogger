@@ -6,6 +6,7 @@ const initialState = [
     title: "Welcome to the Blog",
     content: "This is your first post. Feel free to edit or delete it.",
     likes: 0,
+    category: "General",
   },
 ];
 
@@ -17,23 +18,25 @@ const postsSlice = createSlice({
       reducer(state, action) {
         state.push(action.payload);
       },
-      prepare(title, content) {
+      prepare(title, content, category = "General") {
         return {
           payload: {
             id: nanoid(),
             title,
             content,
+            category,
             likes: 0,
           },
         };
       },
     },
     editPost(state, action) {
-      const { id, title, content } = action.payload;
+      const { id, title, content, category } = action.payload;
       const existing = state.find((post) => post.id === id);
       if (existing) {
         existing.title = title;
         existing.content = content;
+        if (category !== undefined) existing.category = category;
       }
     },
     deletePost(state, action) {

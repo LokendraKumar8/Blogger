@@ -15,12 +15,14 @@ const PostForm = () => {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [category, setCategory] = useState("General");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (existingPost) {
       setTitle(existingPost.title);
       setContent(existingPost.content);
+      setCategory(existingPost.category || "General");
     }
   }, [existingPost]);
 
@@ -33,9 +35,9 @@ const PostForm = () => {
     setIsSubmitting(true);
     setTimeout(() => {
       if (existingPost) {
-        dispatch(editPost({ id, title, content }));
+        dispatch(editPost({ id, title, content, category }));
       } else {
-        dispatch(addPost(title, content));
+        dispatch(addPost(title, content, category));
       }
       navigate("/");
     }, 300);
@@ -76,6 +78,23 @@ const PostForm = () => {
                 placeholder="Enter an engaging title..."
                 className="w-full border-2 border-gray-300 dark:border-gray-600 px-4 py-3 rounded-lg focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition"
               />
+            </div>
+
+            <div>
+              <label className="block font-bold text-gray-900 dark:text-white mb-2 text-lg">
+                Category
+              </label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full border-2 border-gray-300 dark:border-gray-600 px-4 py-3 rounded-lg focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition"
+              >
+                <option>General</option>
+                <option>Tech</option>
+                <option>Life</option>
+                <option>News</option>
+                <option>Tutorial</option>
+              </select>
             </div>
 
             <div>

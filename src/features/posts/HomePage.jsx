@@ -79,6 +79,9 @@ const HomePage = () => {
                 to={`/post/${post.id}`}
                 className="block bg-white rounded-xl shadow-md p-6"
               >
+                <p className="text-sm text-blue-600 mb-2">
+                  {post.category || "General"}
+                </p>
                 <h2 className="text-xl font-bold mb-2">{post.title}</h2>
                 <p className="text-gray-600 mb-4">{post.content}</p>
                 <p>❤️ {post.likes}</p>

@@ -61,6 +61,9 @@ const PostDetails = () => {
             {post.title}
           </h1>
           <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
+            <span className="inline-flex items-center px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm">
+              {post.category || "General"}
+            </span>
             <span className="flex items-center gap-1">📅 Recently updated</span>
           </div>
         </header>
