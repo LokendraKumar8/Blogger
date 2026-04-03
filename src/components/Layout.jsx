@@ -31,11 +31,7 @@ const Layout = ({ children }) => {
 
   return (
     <div
-      className={
-        theme === "dark"
-          ? "bg-background-dark text-white min-h-screen"
-          : "bg-background-light text-gray-900 min-h-screen"
-      }
+      className={`min-h-screen ${theme === "dark" ? "dark bg-gray-900 text-white" : "bg-gray-100 text-gray-900"}`}
     >
       {/* top navigation bar */}
       <motion.nav
@@ -77,13 +73,13 @@ const Layout = ({ children }) => {
           initial="hidden"
           animate="visible"
           variants={sidebarVariants}
-          className="hidden md:block w-64 bg-white dark:bg-gray-800 h-screen border-r border-gray-200 dark:border-gray-700"
+          className={`hidden md:block w-64 h-screen border-r ${theme === "dark" ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}
         >
           <div className="p-6 space-y-4">
             <motion.div whileHover={{ x: 5 }}>
               <Link
                 to="/"
-                className="block text-lg font-semibold text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary-light transition"
+                className={`block text-lg font-semibold transition ${theme === "dark" ? "text-white hover:text-purple-400" : "text-gray-900 hover:text-primary"}`}
               >
                 Home
               </Link>
@@ -91,7 +87,7 @@ const Layout = ({ children }) => {
             <motion.div whileHover={{ x: 5 }}>
               <Link
                 to="/new"
-                className="block text-lg font-semibold text-gray-900 dark:text-white hover:text-secondary dark:hover:text-secondary-light transition"
+                className={`block text-lg font-semibold transition ${theme === "dark" ? "text-white hover:text-purple-400" : "text-gray-900 hover:text-secondary"}`}
               >
                 Create Post
               </Link>

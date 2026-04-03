@@ -45,7 +45,7 @@ const postsSlice = createSlice({
     likePost(state, action) {
       const existing = state.find((p) => p.id === action.payload);
       if (existing) {
-        existing.likes += 1;
+        existing.likes = existing.likes === 0 ? 1 : 0;
       }
     },
   },

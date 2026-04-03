@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { deletePost, likePost } from "./postsSlice";
+import { deletePost, likePost } from "../../app/postsSlice";
 
 const PostDetails = () => {
   const { id } = useParams();

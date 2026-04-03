@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { addPost, editPost } from "./postsSlice";
+import { addPost, editPost } from "../../app/postsSlice";
 
 const PostForm = () => {
   const dispatch = useDispatch();
